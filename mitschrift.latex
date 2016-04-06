@@ -1,0 +1,229 @@
+\documentclass[
+  11pt,
+]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[]{concrete}
+
+\usepackage[]{parskip}
+\usepackage[]{microtype}
+\usepackage[
+  cm,
+  headings
+]{fullpage}
+\usepackage[ngerman]{babel}
+
+\usepackage[]{amsmath}
+\usepackage[]{amssymb}
+
+\usepackage[]{hyperref}
+\usepackage[]{enumerate}
+\usepackage[]{color}
+
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+%\fancyhead[L]{Komplexität und formale Sprachen}
+%\fancyhead[C]{}
+%\fancyhead[R]{}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+% Coole Zeichnungen:
+\usepackage{tikz}
+\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+}
+
+% Definitionen und Sätze:
+\usepackage[]{amsthm}
+
+\newtheoremstyle{bonny}% schottisch für „ansehnlich“
+  {9pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {6pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {\smallskip}% punctuation between head and body
+  {\newline}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+
+\theoremstyle{bonny}
+
+\newtheorem{definition}{Definition}
+\newtheorem{satz}{Satz}
+\newtheorem{beispiel}{Beispiel}
+\newtheorem{bemerkung}{Bemerkung}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+
+\title{Komplexität und formale Sprachen}
+\author{Vorlesung an der Uni Rostock}
+
+\begin{document}
+
+\maketitle
+
+\section*{Worum geht es?}
+\label{sec:worum_geht_es_}
+
+\subsection*{Grenzen der Informatik}
+\label{sub:grenzen_der_informatik}
+
+\begin{itemize}
+  \item Was kann man prinzipiell berechnen und was nicht?
+  \item[$\rightarrow$] \emph{Berechenbarkeit}
+  \item Was kann man unter Einsatz vernünftiger Ressourcen berechnen und was nur
+    mit unvernünftigem Aufwand?
+  \item[$\rightarrow$] \emph{Komplexität}
+  \item Wie komplex muss ein Regelwerk/eine Maschine sein, um ein Problem (als
+    Sprache) zu beschreiben bzw.\ zu lösen?
+  \item[$\rightarrow$] \emph{Formale Sprachen}
+\end{itemize}
+
+\pagebreak
+
+\section{Komplexität}
+\label{sec:komplexit_t}
+
+\subsection{Setting}
+\label{sub:setting}
+
+\begin{itemize}
+  \item wir betrachten ab jetzt nur \emph{totale} Funktionen
+  \item \textbf{Aufwand}
+    \begin{itemize}
+      \item einer Berechnung (eines Programmlaufs):
+        \begin{itemize}
+          \item Zeit = Anzahl der Schritte bis Terminierung
+          \item Platz = Anzahl der benutzten Zellen
+        \end{itemize}
+      \item eines Programms (einer Maschine):
+        \begin{description}
+          \item[worst case] Funktion, die jedem $n$ das Maximum der Aufwände von
+            Berechnungen bei Eingaben der Länge $n$ zuordnet.
+          \item[average case] … den Durchschnitt …
+          \item[best case] … das Minimum …
+        \end{description}
+      \item eines Problems = \textbf{Komplexität}
+        \begin{itemize}
+          \item[=] Aufwand des \emph{besten} Programms zur Lösung des Problems
+        \end{itemize}
+    \end{itemize}
+  \item \textbf{Eingabelänge}
+    \begin{itemize}
+      \item hängt von der Kodierung ab
+      \item alles außer unär sehen wir als „vernünftige“ Kodierung an (z.\,B.
+        binär, dezimal, hexadezimal)
+    \end{itemize}
+\end{itemize}
+
+\subsection{Die Wahl der Maschine}
+\label{sub:die_wahl_der_maschine}
+
+Betrachten wir zunächst die bekannten Turing-Maschinen. Es stellt sich sofort
+die Frage: mit was für einer Turing-Maschine arbeiten wir? Hat sie ein oder
+mehrere Bänder? Wie groß ist das Alphabet? Diese Eigenschaften beeinflussen das
+Resultat unserer Analyse.
+
+\begin{satz}
+  Zu jeder Turing-Maschine $M$, die eine Funktion $f$ mit Platzbedarf $S_M: \N
+  \rightarrow \N$ berechnet und jedem $\varepsilon > 0$ existiert eine Maschine
+  $M'$, für deren Platzbedarf $S_{M'}$ für fast alle $n$ gilt:
+  \begin{align*}
+    S_{M'}(n) \leq \lceil \varepsilon \cdot S_M(n) \rceil
+  \end{align*}
+  \emph{Beweisidee:} $X' = X^n$, d.\,h.\ eine Zelle von $M'$ speichert den
+  Inhalt von $n$ Zellen von $M$.
+
+  \emph{Im Klartext:} Wir können den Platzbedarf einer Turing-Maschine beliebig
+  verringern, indem wir eine andere Turing-Maschine mit größerem Alphabet
+  konstruieren. Diese „verbraucht“ für die neue Berechnung weniger Zellen.
+\end{satz}
+
+\begin{satz}
+  Zu jeder $k$-Band-Turing-Maschine $M$ mit $k > 1$, die eine Funktion $f$ mit
+  Zeitbedarf $T_M: \N \rightarrow \N$ berechnet und jedem $\varepsilon > 0$,
+  existiert eine Turing-Maschine $M'$, die $f$ mit Zeitbedarf
+  \begin{align*}
+    T_{M'}(n) \leq n + \lceil \varepsilon \cdot T_M (n) \rceil + c
+  \end{align*}
+  abarbeitet.
+
+  \emph{Beweisidee:} Komprimiere Zellen (wie oben) auf 2. Band und fasse alle
+  Taktfolgen, bei denen der Kopf innerhalb einer Zellengruppe bleibt, zu einem
+  einzigen Takt zusammen.
+\end{satz}
+
+\begin{satz}
+  Sei $M$ eine Turing-Maschine, die $f$ mit Zeitaufwand $T_M$ und Platzaufwand
+  $S_M$ berechnet. Sei $k \in \N$. Dann gibt es eine Turing-Maschine $M'$, die
+  $f$ berechnet, wobei
+  \begin{itemize}
+    \item $T_{M'}(n) =
+      \begin{cases}
+        n & \text{falls } n \leq k\\
+        T_{M}(n) & \text{sonst}
+      \end{cases}$
+    \item $S_{M'}(n) =
+      \begin{cases}
+        0 & \text{falls } n \leq k\\
+        S_{M}(n) & \text{sonst}
+      \end{cases}$
+  \end{itemize}
+
+  \emph{Beweisidee:} für Eingaben der Länge $\leq k$ (das sind beschränkt viele)
+  kodieren wir eine Tabelle mit vorberechneten Werten direkt ins Programm.
+\end{satz}
+
+Fazit: für Komplexitätsbetrachtungen sind:
+\begin{itemize}
+  \item nicht wichtig: lineare Faktoren
+  \item nur wichtig: asymptotisches Verhalten der Aufwandsfunktionen
+\end{itemize}
+
+\subsection{O-Notation}
+\label{sub:o_notation}
+
+\begin{definition}[$\ae$]
+  Seien $f,g: \N \rightarrow \N$. Es gilt $f \ae  g$, falls für fast
+  alle $n: f(n) \leq g(n)$ gilt. „Fast alle“ heißt „alle bis auf endlich viele“.
+\end{definition}
+
+\begin{definition}[$\O$]
+  $\O(f) := \{ g \mid \exists k \in \N \setminus \{ 0 \} : g \ae k \cdot f \}$
+\end{definition}
+
+\end{document}
