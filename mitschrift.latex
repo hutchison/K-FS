@@ -89,6 +89,14 @@
 \renewcommand{\O}{\mathcal{O}}
 \renewcommand{\ae}{\leq_{\textsf{ae}}}
 
+\newcommand{\SAT}{\textsf{SAT}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\TAKT}{\textsf{TAKT}}
+\newcommand{\ADDRESS}{\textsf{ADDRESS}}
+\newcommand{\zustand}{\textsf{zustand}}
+\newcommand{\position}{\textsf{position}}
+\newcommand{\band}{\textsf{band}}
+
 \title{Komplexität und formale Sprachen}
 \author{Vorlesung an der Uni Rostock}
 
@@ -225,5 +233,146 @@ Fazit: für Komplexitätsbetrachtungen sind:
 \begin{definition}[$\O$]
   $\O(f) := \{ g \mid \exists k \in \N \setminus \{ 0 \} : g \ae k \cdot f \}$
 \end{definition}
+
+\begin{satz}[Satz von Cook: $\SAT$ ist $\NP$-vollständig]
+  Teil 1: $\SAT \in \NP$:
+  \begin{itemize}
+    \item „Rate“ Belegung und rechne den Wert des Ausdrucks aus
+    \item dies braucht $\O(n)$ Schritte, wenn $n$ die Anzahl der Symbole ist,
+      aus denen der Ausdruck aufgebaut ist
+  \end{itemize}
+  Teil 2: $\SAT$ ist $\NP$-hart
+  \begin{itemize}
+    \item Gegeben: irgendein $\NP$-Problem, also eine nichtdet. Turingmaschine
+      $M$ und ein Polynom $p$, das $T_M$ beschränkt.
+    \item Wir bilden zur Eingabe $x$ für $M$ in Polynomialzeit einen
+      aussagenlogischen Ausdruck $\phi$, der die Arbeit von $M$ derart
+      nachbildet, dass $\phi$ genau dann erfüllbar ist, wenn ein Lauf von $M$
+      existiert, der mit Ergebnis $1$ terminiert.
+    \item Wir nutzen dabei: $M$ läuft auf $x$ maximal $p(|x|)$ Takte und $p$
+      ist effizient berechenbar.
+  \end{itemize}
+  \begin{proof}
+    \begin{itemize}
+      \item Wir betrachten Indizes aus folgenden Indexmengen:
+        \begin{itemize}
+          \item $x \in \Gamma$: das verwendete Bandalphabet der Maschine; die
+            Größe ist unabhängig von der Eingabelänge
+          \item $z \in Z$: die verwendete Zustandsmenge der Maschine; die Größe
+            ist unabhängig von der Eingabelänge
+          \item $t \in \TAKT: \{0, \dots, p(n)\}$, polynomielle Größe in
+            Abhängigkeit von der Eingabelänge $n$
+          \item $a \in \ADDRESS: \{ -p(n), \dots, 0, \dots, p(n) \}$
+            polynomielle Größe abhängig von der Eingabelänge
+        \end{itemize}
+      \item Wir betrachten Aussagenvariablen mit folgendem Verwendungszweck:
+        \begin{itemize}
+          \item $z_{tz}: [\zustand(t) = z]$ nach $t$ Takten ist $M$ im Zustand
+            $z$
+          \item $y_{ta}: [\position(t) = a]$ nach $t$ Takten steht der Kopf auf
+            Zelle $a$
+          \item $x_{tax}: [\band(t, a) = x]$ nach $t$ Takten enthält Zelle $a$
+            den Wert $x$
+        \end{itemize}
+      \item Konstruierte Formel:
+        $\textsf{A} \wedge \textsf{Ü} \wedge \textsf{E} \wedge \textsf{R}$
+        \begin{itemize}
+          \item $\textsf{A}$: Anfangsbedingung, beschreibt Startkonfiguration
+          \item $\textsf{Ü}$: Übergangsfunktion, beschreibt Konfigurationswechsel
+          \item $\textsf{E}$: Endbedingung, beschreibt Endkonfiguration
+          \item $\textsf{R}$: Randbedingung, schließt ungewollte Lösungen aus
+        \end{itemize}
+        Zu \textsf{A} (Anfangsbedingung): Für Eingabe $x_1, \dots, x_n$
+        \begin{center}
+          \begin{tabular}{ll}
+            $z_{00}\ \wedge$
+              & \dots Zustand nach $0$ Takten ist $z_0$\\
+            $y_{00}\ \wedge$
+              & \dots Kopfposition nach $0$ Takten ist $0$\\
+            $\bigwedge\limits_{a = 1 \dots n} x_{0, a-1, xa}\ \wedge$
+              & \dots Eingabe nach $0$ Takten auf dem Band\\
+            $\bigwedge\limits_{-p(n) \leq a \leq 0 \ \vee \ n+1 \leq a \leq p(n)} x_{0, a-1, \Box}\ \wedge$
+              & \dots restliches Band ist leer\\
+          \end{tabular}
+        \end{center}
+        Länge von \textsf{A}: $2p(n) + 3$; Konstruktion effizient realisierbar
+
+        Zu \textsf{Ü} (Übergangsrelation): für
+        $d(z,x) = \emptyset$
+        wird
+        $d(z,x) = \{(z, x, 0)\}$
+        gesetzt (Terminierung auf Zeitpunkt $p(n)$ verschoben)
+
+        \begin{center}
+          \begin{tabular}{ll}
+            $\Big(
+              \bigwedge\limits_{0 \leq t < p(n), -p(n) \leq a \leq p(n), z, x}
+              \big( ( z_{tz} \ \wedge \ y_{ta} \ \wedge \ x_{tax} )$
+              & \dots aktuelle Konfiguration\\
+            $\Rightarrow
+              \bigvee\limits_{(z', x', b) \in \delta(z,x)}
+              (z_{t+1, z'} \ \wedge \ y_{t+1, a+b} \ \wedge \ x_{t+1, a, x'})
+              \big)
+              \Big)$
+              & \dots Folgekonfiguration\\
+            $\wedge\ \bigwedge_{0 \leq t < p(n), -p(n) \leq a \leq p(n), x}
+              (\neg y_{ta} \ \wedge \ x_{tax}) \Rightarrow x_{t+1, a, x}$
+              & \dots keine Änderung woanders
+          \end{tabular}
+        \end{center}
+        Länge von \textsf{Ü} etwa $2 |X| |Z| {p(n)}^2 + 3 |X| |Z| + 6 |X| {p(n)}^2$;
+        Konstruktion effizient realisierbar
+
+        Zu \textsf{E} (Endbedingung):
+        \begin{center}
+          \begin{tabular}{ll}
+            $z_{p(n), zf} \ \wedge$ & \dots Maschine im Endzustand\\
+            $\bigwedge\limits_{-p(n) \leq a \leq p(n)} y_{p(n), a}
+              \Rightarrow
+              ( x_{p(n), a+1, 1}
+              \ \wedge \
+              x_{p(n), a+2, \Box}
+              \ \wedge \
+              x_{p(n), a, \Box} )$
+              & \dots am Kopf steht Ergebnis $1$
+          \end{tabular}
+        \end{center}
+        Länge von \textsf{E} etwa $8p(n)$; Konstruktion effizient realisierbar
+
+        Zu \textsf{R} (Randbedingung):
+        \begin{center}
+          \begin{tabular}{ll}
+            $\bigwedge\limits_{0 \leq t \leq p(n)}
+              \bigvee\limits_z z_{tz} \ \wedge
+              \bigwedge\limits_{z' \neq z} \neg z_{tz'} \ \wedge$
+              & \dots die Maschine ist immer in genau einem Zustand\\
+            $\bigwedge\limits_{0 \leq t \leq p(n)}
+              \bigvee\limits_{-p(n) \leq a \leq p(n)} y_{ta} \ \wedge
+              \bigwedge\limits_{a' \neq a} \neg z_{ta'} \ \wedge$
+              & \dots der Kopf befindet sich immer an genau einer Position\\
+            $\bigwedge\limits_{0 \leq t \leq p(n)}
+              \bigwedge\limits_{-p(n) \leq a \leq p(n)}
+              \bigvee\limits_x x_{tax} \ \wedge
+              \ \bigwedge\limits{x' \neq x} \neg x_{tax'}$
+              & \dots in jeder Zelle befindet sich immer genau ein Zeichen
+          \end{tabular}
+        \end{center}
+        Länge von \textsf{R} etwa $|Z|^2 p(n) + 4 {p(n)}^3 + 2 |X|^2 {p(n)}^2$;
+        Konstruktion effizient realisierbar
+    \end{itemize}
+    Rest des Beweises:
+    \begin{enumerate}[(a)]
+      \item Falls ein Lauf der Maschine existiert, der mit $1$ terminiert, dann
+        liefert dieser Lauf auf naheliegende Weise eine erfüllende Belegung der
+        konstruierten Formel.
+      \item Falls die konstruierte Formel erfüllbar ist, dann kann man aus der
+        erfüllenden Belegung einen akzeptierenden Lauf der Maschine ableiten
+        (\textsf{R} dabei wichtig).
+    \end{enumerate}
+    Also ist der Ausdruck genau dann erfüllbar, wenn die Maschine auf
+    betrachteter Eingabe hält. Außerdem ist die Konstruktion in $\O({p(n)}^3)$
+    möglich.
+  \end{proof}
+\end{satz}
 
 \end{document}
