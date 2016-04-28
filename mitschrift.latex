@@ -90,6 +90,15 @@
 \renewcommand{\ae}{\leq_{\textsf{ae}}}
 
 \newcommand{\SAT}{\textsf{SAT}}
+\newcommand{\NPRIM}{\textsf{NPRIM}}
+\newcommand{\SETPACKING}{\textsf{SET PACKING}}
+\newcommand{\ZOINTLINPROGRAMMING}{\textsf{0/1-INTEGER LINEAR PROGRAMMING}}
+\newcommand{\KNAPSACK}{\textsf{KNAPSACK}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\VERTEXCOVER}{\textsf{VERTEX COVER}}
+\newcommand{\HAMILTONCIRCUIT}{\textsf{HAMILTON CIRCUIT}}
 \newcommand{\NP}{\textsf{NP}}
 \newcommand{\TAKT}{\textsf{TAKT}}
 \newcommand{\ADDRESS}{\textsf{ADDRESS}}
@@ -234,7 +243,73 @@ Fazit: für Komplexitätsbetrachtungen sind:
   $\O(f) := \{ g \mid \exists k \in \N \setminus \{ 0 \} : g \ae k \cdot f \}$
 \end{definition}
 
-\begin{satz}[Satz von Cook: $\SAT$ ist $\NP$-vollständig]
+\subsection{Einige Entscheidungsprobleme in \NP}
+\label{sub:einige_entscheidungsprobleme_in_np}
+
+\begin{itemize}
+  \item \SAT{}: Zu gegebenem Ausdruck der Aussagenlogik (in konjunktiver
+    Normalform) ist seine Erfüllbarkeit zu entscheiden
+    \begin{itemize}
+      \item „Rate“ Belegung der Variablen
+      \item prüfe deterministisch
+    \end{itemize}
+
+  \item \NPRIM{}: Zu gegebener nat. Zahl > 1 ist zu entscheiden, ob sie echte
+    Teiler besitzt
+    \begin{itemize}
+      \item „Rate“ Teiler
+      \item prüfe deterministisch
+    \end{itemize}
+
+  \item \SETPACKING{}: Gegeben sei die Menge $M$ und $n$ Teilmengen
+    $M_1, \ldots, M_n$ und die Zahl $k$.
+
+    Gibt es unter den gegebenen Teilmengen $k$ paarweise disjunkte?
+    \begin{itemize}
+      \item Rate sie \ldots
+    \end{itemize}
+
+  \item \ZOINTLINPROGRAMMING{}: Gegeben seien Ungleichungen, eine Zielfunktion
+    $f$ in $n$ Variablen $x_1, \ldots, x_n$, sowie eine Zahl $k$.
+
+    Gibt es eine Zuordnung von den Werten $0$ bzw. $1$ für die $x_i$ derart,
+    dass $f(x_1, \ldots, x_n) \geq k$?
+
+  \item \KNAPSACK{}: Gegeben sei eine Menge, die für jedes Element das Gewicht
+    und den Wert enthält, und die Zahlen $G$ und $W$.
+
+    Gibt es eine Teilmenge, deren Gewichtssumme $\leq G$ und Wertsumme $\geq W$
+    ist?
+
+  \item \CLIQUE{}: Gegeben sei ein ungerichteter Graph $(V,E)$ und eine Zahl
+    $k$.
+
+    Gibt es eine Knotenmenge $V' \subseteq V$ mit $|V'| \geq k$ und $V' \times
+    V' \in E$?
+
+  \item \TSP{}: Gegeben sei ein vollständiger Graph $(V, E = V \times V)$ mit
+    einer Kostenfunktion $c: E \rightarrow \N$ sowie eine Zahl $k$.
+
+    Gibt es eine Rundreise in $(V, E)$, die billiger als $k$ ist?
+
+  \item \COLOR{}: Gegeben sei ein ungerichteter Graph $(V, E)$ und eine Zahl
+    $k$.
+
+    Kann man die Knoten mit $k$ Farben so färben, dass benachbarte Knoten immer
+    verschiedene Farben haben?
+
+  \item \VERTEXCOVER{}: Gegeben sei ein ungerichteter Graph $(V, E)$ und eine
+    Zahl $k$.
+
+    Gibt es eine Teilmenge $V'$ mit $|V'| \leq k$ derart, dass jede Kante mit
+    einem Knoten aus $V$ verbunden ist?
+
+  \item \HAMILTONCIRCUIT{}: Gegeben sei ein ungerichteter Graph.
+
+    Gibt es einen Kreis, der alle Knoten durchläuft?
+\end{itemize}
+
+\begin{satz}[Satz von Cook: \SAT{} ist \NP{}-vollständig]
   Teil 1: $\SAT \in \NP$:
   \begin{itemize}
     \item „Rate“ Belegung und rechne den Wert des Ausdrucks aus
