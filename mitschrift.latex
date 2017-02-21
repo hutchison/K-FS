@@ -88,6 +88,7 @@
 \newcommand{\N}{\mathbb{N}}
 \renewcommand{\O}{\mathcal{O}}
 \renewcommand{\ae}{\leq_{\textsf{ae}}}
+\newcommand{\p}{\leq_{\textsf{p}}}
 
 \newcommand{\SAT}{\textsf{SAT}}
 \newcommand{\NPRIM}{\textsf{NPRIM}}
@@ -309,6 +310,41 @@ Fazit: für Komplexitätsbetrachtungen sind:
     Gibt es einen Kreis, der alle Knoten durchläuft?
 \end{itemize}
 
+\begin{definition}[Polynomialzeitreduktion]
+  Seien $L_1 \subseteq \Sigma_1^*$ und $L_2 \subseteq \Sigma_2^*$ Sprachen (bzw.
+  Entscheidungsprobleme), dann ist
+  \begin{align*}
+    L_1 & \p L_2 & \text{($L_1$ ist auf $L_2$ polynomiell reduzierbar)}
+  \end{align*}
+  wenn es eine in polynomieller Zeit berechenbare Funktion
+  $f: \Sigma_1^* \rightarrow \Sigma_2^*$
+  (also eine Turingmaschine, die in polynomieller Zeit terminiert) gibt,
+  so dass für alle Wörter
+  $w \in \Sigma_1^*$
+  die Äquivalenz
+  \begin{align*}
+    w \in L_1 \Leftrightarrow f(w) \in L_2
+  \end{align*}
+  gilt.
+\end{definition}
+
+\begin{definition}[\NP-schwer]
+  Eine Sprache $L$ ist \NP-schwer, wenn für alle $L' \in \NP$
+  \begin{align*}
+    L' \p L
+  \end{align*}
+  gilt.
+\end{definition}
+
+\begin{definition}[\NP-vollständig]
+  Ein Entscheidungsproblem $L$ heißt \NP-vollständig, wenn
+  \begin{itemize}
+    \item $L \in \NP$
+    \item $L$ ist \NP-schwer, also jedes Problem aus \NP{} lässt sich in
+      Polynomialzeit auf $L$ reduzieren ($\forall L' \in \NP{}: L' \p L$).
+  \end{itemize}
+\end{definition}
+
 \begin{satz}[Satz von Cook: \SAT{} ist \NP{}-vollständig]
   Teil 1: $\SAT \in \NP$:
   \begin{itemize}
@@ -316,7 +352,7 @@ Fazit: für Komplexitätsbetrachtungen sind:
     \item dies braucht $\O(n)$ Schritte, wenn $n$ die Anzahl der Symbole ist,
       aus denen der Ausdruck aufgebaut ist
   \end{itemize}
-  Teil 2: $\SAT$ ist $\NP$-hart
+  Teil 2: $\SAT$ ist $\NP$-schwer
   \begin{itemize}
     \item Gegeben: irgendein $\NP$-Problem, also eine nichtdet. Turingmaschine
       $M$ und ein Polynom $p$, das $T_M$ beschränkt.
@@ -445,9 +481,33 @@ Fazit: für Komplexitätsbetrachtungen sind:
         (\textsf{R} dabei wichtig).
     \end{enumerate}
     Also ist der Ausdruck genau dann erfüllbar, wenn die Maschine auf
-    betrachteter Eingabe hält. Außerdem ist die Konstruktion in $\O({p(n)}^3)$
+    betrachteter Eingabe hält. Außerdem ist die Konstruktion in
+    $\O\left({p(n)}^3\right)$
     möglich.
   \end{proof}
 \end{satz}
+
+\begin{satz}[$\SAT \p \CLIQUE$]
+\end{satz}
+
+\pagebreak
+
+\section{Formale Sprachen}
+\label{sec:formale_sprachen}
+
+\subsection{Grundlagen}
+\label{sub:grundlagen}
+
+\begin{description}
+  \item[Alphabet $X$] eine endliche nicht leere Menge
+    $X = \{x_1, \ldots, x_n \}$.
+  \item[Wort $w$] eine endliche Folge von Buchstaben
+    $w: \{0, \ldots, n-1\} \rightarrow X$
+  \item[Wortlänge $|w|$] Anzahl der Buchstaben $n$
+  \item[Wortmenge $X^*$] die Menge aller Wörter über dem Alphabet $X$
+  \item[Sprache $L$] eine Menge von Wörtern über $X$: $L \subseteq X^*$
+  \item[Satz von $L$] ein Wort $w \in L$
+\end{description}
+
 
 \end{document}
