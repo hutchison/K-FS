@@ -1,0 +1,315 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+%\usepackage{multirow}
+
+% Coole Zeichnungen:
+%\usepackage{tikz}
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 4}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\newcommand{\p}{\leq_{\textsf{p}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\HC}{\textsf{HAMILTONIAN CIRCUIT}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IS}{\textsf{INDEPENDENT SET}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{cccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & $\Sigma$\\
+    \midrule
+    & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item \begin{enumerate}
+    \item Wir zeigen: die Relation $\p$ ist auf der Menge \NP{} ist eine
+      Quasiordnung.
+
+      Seien
+      $L_1 \subseteq \Sigma_1^*,
+        L_2 \subseteq \Sigma_2^*,
+        L_3 \subseteq \Sigma_3^*$
+      Entscheidungsprobleme und
+      $L_1, L_2, L_3 \in \NP$.
+
+      \begin{description}
+        \item[reflexiv] Es gilt $L_1 \p L_1$ genau dann, wenn eine polynomiale
+          berechenbare Funktion $f: \Sigma_1^* \rightarrow \Sigma_1^*$
+          existiert, so dass für alle Wörter $w \in \Sigma_1^*$ die Äquivalenz
+          $w \in L_1 \Leftrightarrow f(w) \in L_1$ gilt.
+
+          Diese Äquivalenz ist für $f := \id$ erfüllt, also gilt $L_1 \p L_1$.
+
+        \item[transitiv] Es ist zu zeigen: $L_1 \p L_2$ und $L_2 \p L_3$
+          impliziert $L_1 \p L_3$.
+
+          $L_1 \p L_2$ bedeutet, dass eine polynomiale berechenbare Funktion
+          $f: \Sigma_1^* \rightarrow \Sigma_2^*$ existiert, so dass für alle
+          Wörter
+          $w \in \Sigma_1^*$ die Äquivalenz
+          $w \in L_1 \Leftrightarrow f(w) \in L_2$ gilt.
+
+          Analog dazu bedeutet $L_2 \p L_3$, dass eine polynomiale berechenbare
+          Funktion
+          $g: \Sigma_2^* \rightarrow \Sigma_3^*$
+          existiert, so dass für alle Wörter
+          $w \in \Sigma_2^*$ die Äquivalenz
+          $w \in L_2 \Leftrightarrow g(w) \in L_3$ gilt.
+
+          Damit $L_1 \p L_3$ gilt, muss eine polynomiale berechenbare Funktion
+          $h: \Sigma_1^* \rightarrow \Sigma_3^*$
+          existieren, so dass für alle Wörter
+          $w \in \Sigma_1^*$ die Äquivalenz
+          $w \in L_1 \Leftrightarrow h(w) \in L_3$ gilt.
+
+          Wir wählen $h := g \circ f$ und erhalten
+          \begin{align*}
+            w \in \Sigma_1^* & \Leftrightarrow f(w) \in \Sigma_2^*\\
+            f(w) \in \Sigma_2^* & \Leftrightarrow g(f(w)) \in \Sigma_3^*
+              & \text{also}\\
+            w \in \Sigma_1^* & \Leftrightarrow h(w) = g(f(w)) \in \Sigma_3^*
+          \end{align*}
+          Da $f$ und $g$ jeweils polynomiale berechenbare Funktionen sind, ist
+          auch $g \circ f$ eine polynomiale berechenbare Funktion und die
+          Transitivität wurde gezeigt.
+      \end{description}
+
+    \item $\p$ ist auf $\NP$ nicht antisymmetrisch.
+
+      In der Vorlesung wurde gezeigt, dass \CLIQUE{} \NP-vollständig ist, indem
+      \DreiSAT{} auf \CLIQUE{} reduziert wurde. Sicherlich existiert folgender
+      Beweis: $\CLIQUE \p \DreiSAT$, da beide Probleme \NP-vollständig sind.
+
+      Wäre $\p$ auf $\NP$ antisymmetrisch, dann wären \CLIQUE{} und \DreiSAT{}
+      das gleiche Entscheidungsproblem. Dies können sie aber nicht sein, weil
+      die zugrundeliegenden Sprachen (einerseits Graphen und natürliche Zahlen
+      und andererseits die Sprache der Aussagenlogik) nicht gleich sind.
+
+    \item Die Menge der \NP-vollständigen Probleme ist auf der Relation $\p$
+      eine Äquivalenzrelation.
+  \end{enumerate}
+
+  \item
+    \begin{enumerate}
+      \item Die vorgegebene Route vom Bahnhof zum Stadion sei der gegebene
+        Graph, wobei die Straßenkreuzungen die Knoten und die Straßen zwischen
+        den Kreuzungen die Kanten sind.
+
+        Mit Hilfe der Optimierungsvariante 1 von $\IS$ können wir eine minimale
+        unabhängige Menge von Knoten finden, so dass alle Knoten durch diese
+        Menge verbunden sind. Mit der minimalen Menge unabhängiger Knoten wird
+        sichergestellt, dass das Verhältnis
+        \begin{align*}
+          \frac{\text{Anzahl verfügbarer Polizisten}}{\text{Anzahl zu
+          überwachender Straßen}}
+        \end{align*}
+        maximal wird.
+
+      \pagebreak
+
+      \item $\TSP$ beschreibt das folgende Problem:
+        \begin{description}
+          \item[Eingabe:] Ein ungerichteter Graph $G$ mit ganzzahliger
+            Gewichtung der Kanten und einer Grenze $k \in \N$.
+          \item[Ausgabe:] „Ja“ genau dann, wenn $G$ einen Hamiltonkreis enthält,
+            dass die Summe der Kantengewichte kleiner oder gleich $k$ ist.
+        \end{description}
+
+        $\HC$ beschreibt das folgende Problem:
+        \begin{description}
+          \item[Eingabe:] ein ungerichteter Graph $G$
+          \item[Ausgabe:] „Ja“ genau dann, wenn $G$ einen Hamiltonkreis enthält.
+        \end{description}
+
+        Wir zeigen $\HC \p \TSP$.
+
+        Zunächst müssen wir $\TSP \in \NP$ zeigen. Dazu „raten“ wir einen Pfad
+        in $G$ und überprüfen, ob dieser ein Hamiltonkreis ist und ob die Summe
+        der Kantengewichte kleiner oder gleich $k$ ist. Dies ist in
+        polynomieller Zeit möglich.
+
+        Sei $G$ ein ungerichteter und ungewichteter Graph, bei dem zu
+        entscheiden ist, ob er einen Hamiltonkreis enthält und sei $n$ die
+        Anzahl der Knoten von $G$. Wir konstruieren einen gewichteten Graphen
+        $G'$, dessen Knoten und Kanten mit denen von $G$ übereinstimmen, wobei
+        jede Kante ein Gewicht von $1$ besitzt. Dies ist in polynomieller Zeit
+        möglich. Gegeben sei außerdem der Grenzwert $k$, der mit der Anzahl der
+        Knoten $n$ in $G$ übereinstimmt.
+
+        Dann existiert ein Hamiltonkreis mit Gewichtssumme $n$ in $G'$ genau
+        dann, wenn $G$ einen Hamiltonkreis enthält.
+  \end{enumerate}
+\end{enumerate}
+
+\end{document}

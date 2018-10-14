@@ -1,0 +1,486 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+%\usepackage{multirow}
+
+% Coole Zeichnungen:
+\usepackage{tikz}
+\tikzstyle{vertex}=[draw, circle, minimum size=20pt]
+\tikzstyle{edge}=[draw, -]
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
+
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 5}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\newcommand{\p}{\leq_{\textsf{p}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\HC}{\textsf{HAMILTONIAN CIRCUIT}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IS}{\textsf{INDEPENDENT SET}}
+\newcommand{\VC}{\textsf{VERTEX COVER}}
+\newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{cccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & $\Sigma$\\
+    \midrule
+    & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item \begin{enumerate}[1.]
+      \item Gegeben: sei $S$ eine Menge und $G_1, \ldots, G_n$ Teilmengen von
+        $S$. Sei $\ell \in \N$.
+
+        Frage: Gibt es eine Auswahl von Elementen $X \subseteq S$, sodass gilt
+        $|X| \leq \ell$ und
+        $G_i \cap X \neq \emptyset \ (\forall i \in \{1, \ldots, n\})$.
+
+      \item \begin{enumerate}[(a)]
+        \item Zunächst betrachten wir die Definition des Problems $\VC$:
+          \begin{quote}
+            Gegeben sei ein Graph $G = (V,E)$ und $k \in \N$.
+
+            Das Entscheidungsproblem von $\VC$ lautet:
+            gibt es eine Menge $U \subseteq V$ mit $|U| \leq k$ und
+            $e \cap U \neq \emptyset$ für alle $e \in E$?
+          \end{quote}
+          $f$ tut folgendes:
+          \begin{itemize}
+            \item $V$ aus $\VC$ wird zu $S$ aus $\IV$
+            \item eine Kante $e_i$ aus $\VC$ wird zu einer Menge $G_i$ aus $\IV$
+              (für alle Kanten aus $E$)
+            \item $k$ aus $\VC$ wird zu $\ell$ aus $\IV$
+          \end{itemize}
+
+          Oder anders gesagt:
+          \begin{align*}
+            f((G,k)) = f(((V, E), k)) = \begin{cases}
+              S := V\\
+              G_i := e_i\\
+              k := \ell
+            \end{cases}
+          \end{align*}
+
+        \item Wie aus den früheren Aufgabenserien bekannt, sei
+          $\Sigma = \{1, 0, \#\}$.
+
+          Der Graph
+          $G = (V, E) = (\{v_1, \ldots, v_n\}, \{e_1, \ldots, e_m\})$
+          und $k \in \N$
+          werden auf dem Band einer Turingmaschine wie folgt kodiert:
+          \begin{align*}
+            \underbrace{\bin(1) \# \bin(2) \# \ldots \# \bin(n)}_{\text{Knoten}}
+            \# \#
+            \underbrace{%
+              \underbrace{\bin(1) \# \bin(2)}_{\text{Kante\ } (v_1, v_2)}
+              \#
+              \underbrace{\bin(1) \# \bin(3)}_{\text{Kante\ } (v_1, v_3)}
+              \#
+              \ldots
+            }_{\text{Kanten}}
+            \# \#
+            \bin(k)
+          \end{align*}
+
+        \item \begin{description}
+          \item[„$\Rightarrow$“] Sei $U \subseteq V$ eine Lösung von $\VC$,
+            d.\,h. $|U| \leq k$ und $\forall e \in E: e \cap U \neq \emptyset$.
+
+            Wir transformieren das Problem wie in (a) beschrieben und setzen
+            $X := U$.
+
+            Dann gilt $|U| = |X| \leq \ell = k$ und
+            $\forall i \in \{1, \ldots, n\}: G_i \cap X \neq \emptyset$,
+            da $\forall e \in E: e \cap U \neq \emptyset$ gilt.
+
+            Damit ist eine Lösung aus $\VC$ nach der Transformation durch $f$
+            auch eine Lösung aus\\ $\IV$.
+
+          \item[„$\Leftarrow$“] Sei $X \subseteq S$ eine Lösung von
+            $f((G,k)) \in \IV$, d.\,h. $|X| \leq \ell$ und
+            $\forall i \in \{1, \ldots, n\}: G_i \cap X \neq \emptyset$.
+
+            Dann ist die Lösung von $\VC$: $U := X$.
+
+            Es gilt $|X| = |U| \leq k = \ell$ und
+            $\forall e \in E: e \cap U \neq \emptyset$,
+            da $\forall i \in \{1, \ldots, n\}: G_i \cap X \neq \emptyset$ gilt.
+
+            Damit ist eine durch $f$ transformierte Lösung aus $\IV$ auch eine
+            Lösung aus $\VC$.
+        \end{description}
+
+        \item Da bei der Transformation durch $f$ keinerlei Umformungen, sondern
+          einfach nur Ersetzungen stattfinden, liegt der Aufwand in $O(n)$ und
+          ist damit polynomiell.
+      \end{enumerate}
+    \end{enumerate}
+
+    \item \begin{enumerate}
+      \item Im Namen.\footnote{höhö, kleiner Scherz}
+
+        Während beim Problem $\CLIQUE$ die größte Clique gesucht wird (und damit
+        das $k$ zur Problembeschreibung gehört), ist das $k$ bei $k-\CLIQUE$
+        fest gewählt.
+
+      \item Ein Algorithmus, der einfach alle möglichen Untergraphen
+        durchprobiert, hat die Komplexität $O(n^k \cdot k^2)$.
+
+        Dies ergibt sich wie folgt: sei $n = |V|$. Von den $n$ Knoten müssen
+        alle Untergraphen der Größe $k$ durchprobiert werden. Dafür gilt
+        \begin{align*}
+          \binom{n}{k} & = \frac{n!}{k! \cdot (n-k)!}
+          = \frac{%
+            \overbrace{n \cdot (n-1) \cdots (n-k+1)}^{k \text{\ Faktoren}}
+            }{k!}
+          \in O(n^k)
+        \end{align*}
+        Jeder dieser Untergraphen hat maximal $\binom{k}{2} \in O(k^2)$ Kanten.
+
+        Insgesamt landen wir bei einer Komplexität von $O(n^k \cdot k^2)$.
+      \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item Greedy-Algorithmus für $\IS$:
+          \begin{algorithmic}[1]
+            \REQUIRE{Graph $G = (V,E)$}
+            \STATE{$U \leftarrow \emptyset$}
+            \STATE{$k \leftarrow 0$}
+            \WHILE{$V \neq \emptyset$}
+              \STATE{$k \leftarrow$ Maximum der Anzahl ausgehender Kanten der Knoten aus $V$}
+              \STATE{$v \leftarrow$ ein zufälliger Knoten aus $V$, der $k$ ausgehende Kanten hat}
+              \STATE{$U \leftarrow U \cup \{ v \}$}
+              \STATE{entferne $v$ und alle benachbarten Knoten von $v$ aus $V$}
+            \ENDWHILE%
+            \RETURN{eine unabhängige Menge $U$ von $G$}
+          \end{algorithmic}
+          Die Menge $U$ ist unabhängig, weil in Zeile 7 für jeden hinzugefügten
+          Knoten $v$ alle benachbarten Knoten von $v$ aus $V$ entfernt werden.
+          Damit können keine zwei Knoten aus $U$ benachbart sein, sodass $U$
+          eine unabhängige Menge sein muss.
+
+        \item Seien $n = |V|$ und $k = |E|$.
+
+          Im schlimmsten Fall (nämlich dann, wenn $G$ schon eine unabhängige
+          Menge ist) wird in der while-Schleife immer nur ein einziger Knoten
+          aus $V$ entfernt. Die Schleife würde dann $n$-mal laufen.
+
+          Um das Maximum der Anzahl ausgehender Kanten aller Knoten aus $V$ zu
+          bestimmen, muss diese Anzahl für jeden Knoten bestimmt werden (liegt in
+          $O(n \cdot k)$) und dabei das Maximum gespeichert werden. Letzteres
+          können wir schon bei der Bestimmung erledigen, sodass die Komplexität
+          nicht größer wird.
+
+          Die Bestimmung von $v$ in Zeile 5 liegt in $O(n)$: wir wählen einfach
+          zufällig einen Knoten aus $V$ aus und überprüfen, ob dieser $k$
+          ausgehende Kanten hat. Wenn nicht, versuchen wir es nochmal.
+
+          $U \leftarrow U \cup \{ v \}$ liegt in $O(1)$.
+
+          Das Entfernen von $v$ und dessen Nachbarschaft aus $V$ liegt im
+          schlimmsten Fall (nämlich wenn $v$ mit allen anderen Knoten verbunden
+          ist) in $O(n)$.
+
+          Insgesamt liegt die Komplexität des Algorithmus’ in
+          $O(n \cdot n \cdot k) = O(n^2 \cdot k)$.
+
+        \item\ \\
+          \begin{center}
+            \begin{tikzpicture}[scale=1, auto]
+              \node[vertex] (d) at (0,0) {$d$};
+              \node[vertex] (c) at (6,0) {$c$};
+              \node[vertex] (b) at (6,6) {$b$};
+              \node[vertex] (a) at (0,6) {$a$};
+
+              \node[vertex] (e) at (2,4) {$e$};
+              \node[vertex] (f) at (4,4) {$f$};
+              \node[vertex] (g) at (4,2) {$g$};
+              \node[vertex] (h) at (2,2) {$h$};
+
+              \path[edge] (a) -- (b) -- (c) -- (d) -- (a);
+              \path[edge] (a) -- (e) -- (h) -- (g) -- (c);
+              \path[edge] (e) -- (f) -- (b);
+              \path[edge] (f) -- (g);
+            \end{tikzpicture}
+          \end{center}
+
+        \pagebreak
+        \item 1. Lauf:
+          \begin{description}
+            \item[Anfang:] $k \leftarrow 0$, $U \leftarrow \emptyset$
+              \begin{center}
+                \begin{tikzpicture}[scale=1, auto]
+                  \node[vertex] (d) at (0,0) {$d$};
+                  \node[vertex] (c) at (6,0) {$c$};
+                  \node[vertex] (b) at (6,6) {$b$};
+                  \node[vertex] (a) at (0,6) {$a$};
+
+                  \node[vertex] (e) at (2,4) {$e$};
+                  \node[vertex] (f) at (4,4) {$f$};
+                  \node[vertex] (g) at (4,2) {$g$};
+                  \node[vertex] (h) at (2,2) {$h$};
+
+                  \path[edge] (a) -- (b) -- (c) -- (d) -- (a);
+                  \path[edge] (a) -- (e) -- (h) -- (g) -- (c);
+                  \path[edge] (e) -- (f) -- (b);
+                  \path[edge] (f) -- (g);
+                \end{tikzpicture}
+              \end{center}
+            \item[Bestimme $k$:] $k \leftarrow 3$
+            \item[Wahl von $v$:] $v \leftarrow a$,
+              damit ist $U = \{ a \}$
+            \item[Entferne $v$ und Nachbarn von $v$:]\ \\
+              \begin{center}
+                \begin{tikzpicture}[scale=1, auto]
+                  \node[vertex] (c) at (6,0) {$c$};
+
+                  \node[vertex] (f) at (4,4) {$f$};
+                  \node[vertex] (g) at (4,2) {$g$};
+                  \node[vertex] (h) at (2,2) {$h$};
+
+                  \path[edge] (h) -- (g) -- (c);
+                  \path[edge] (f) -- (g);
+                \end{tikzpicture}
+              \end{center}
+            \item[Bestimme $k$:] $k \leftarrow 3$
+            \item[Wahl von $v$:] $v \leftarrow g$,
+              damit ist $U = \{ a, g \}$
+            \item[Entferne $v$ und Nachbarn von $v$:] wir erhalten
+              $V = \emptyset$
+
+            \item[Ergebnis: ] Es wird $U = \{ a, g \}$ zurückgegeben, was eine
+              optimale Lösung darstellt.
+          \end{description}
+
+          \pagebreak
+          2. Lauf:
+          \begin{description}
+            \item[Anfang:] $k \leftarrow 0$, $U \leftarrow \emptyset$
+              \begin{center}
+                \begin{tikzpicture}[scale=1, auto]
+                  \node[vertex] (d) at (0,0) {$d$};
+                  \node[vertex] (c) at (6,0) {$c$};
+                  \node[vertex] (b) at (6,6) {$b$};
+                  \node[vertex] (a) at (0,6) {$a$};
+
+                  \node[vertex] (e) at (2,4) {$e$};
+                  \node[vertex] (f) at (4,4) {$f$};
+                  \node[vertex] (g) at (4,2) {$g$};
+                  \node[vertex] (h) at (2,2) {$h$};
+
+                  \path[edge] (a) -- (b) -- (c) -- (d) -- (a);
+                  \path[edge] (a) -- (e) -- (h) -- (g) -- (c);
+                  \path[edge] (e) -- (f) -- (b);
+                  \path[edge] (f) -- (g);
+                \end{tikzpicture}
+              \end{center}
+            \item[Bestimme $k$:] $k \leftarrow 3$
+            \item[Wahl von $v$:] $v \leftarrow b$,
+              damit ist $U = \{ b \}$
+            \item[Entferne $v$ und Nachbarn von $v$:]\ \\
+              \begin{center}
+                \begin{tikzpicture}[scale=1, auto]
+                  \node[vertex] (d) at (0,0) {$d$};
+
+                  \node[vertex] (e) at (2,4) {$e$};
+                  \node[vertex] (g) at (4,2) {$g$};
+                  \node[vertex] (h) at (2,2) {$h$};
+
+                  \path[edge] (e) -- (h) -- (g);
+                \end{tikzpicture}
+              \end{center}
+            \item[Bestimme $k$:] $k \leftarrow 2$
+            \item[Wahl von $v$:] $v \leftarrow h$,
+              damit ist $U = \{ b, h \}$
+            \item[Entferne $v$ und Nachbarn von $v$:] wir erhalten
+              \begin{center}
+                \begin{tikzpicture}[scale=1, auto]
+                  \node[vertex] (d) at (0,0) {$d$};
+                \end{tikzpicture}
+              \end{center}
+            \item[Bestimme $k$:] $k \leftarrow 0$
+            \item[Wahl von $v$:] $v \leftarrow d$,
+              damit ist $U = \{ b, h, d \}$
+            \item[Entferne $v$ und Nachbarn von $v$:] wir erhalten
+              $V = \emptyset$
+
+            \item[Ergebnis: ] Es wird $U = \{ b, h, d \}$ zurückgegeben, was
+              keine optimale Lösung darstellt.
+          \end{description}
+
+          Bei diesen zwei Läufen sehen wir, dass eine optimale Lösung gefunden
+          werden kann, dies aber nicht immer passiert.
+      \end{enumerate}
+\end{enumerate}
+
+\end{document}

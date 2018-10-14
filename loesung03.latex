@@ -1,0 +1,353 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+%\usepackage{multirow}
+
+% Coole Zeichnungen:
+%\usepackage{tikz}
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 3}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{cccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & $\Sigma$\\
+    \midrule
+    & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item
+    \begin{enumerate}[(a)]
+      \item In der Übung wurde gezeigt, dass sich \DreiSAT{} auf das
+        Halteproblem reduzieren lässt.
+
+        Um zu zeigen, dass das Halteproblem wenigstens so schwer wie
+        \COLORDrei{} ist, überführen wir \COLORDrei{} in \DreiSAT{}.
+
+        Gegeben sei ein Graph $(V, E)$ mit $|V| = n$ und eine Menge mit drei
+        Farben, die wir mit $\{1,2,3\}$ abstrahieren. Wir führen für jeden
+        Knoten und jede Farbe ein Literal $v_{i, c}$ (mit $i \in \{1, \ldots,
+        n\}$ und $c \in \{1,2,3\}$) ein, welches angibt, ob der Knoten mit
+        dieser Farbe gefärbt wurde.
+
+        Die aussagenlogische Formel für \DreiSAT{} ergibt sich aus zwei
+        Teilformeln: $K \wedge N$
+
+        Dabei gilt:
+        \begin{itemize}
+          \item $K$ sind die Bedingungen für die Färbungen der einzelnen Knoten,
+          \item $N$ sind die Bedingungen für die unterschiedlichen Färbungen
+            benachbarter Knoten
+        \end{itemize}
+
+        Ein einzelner Knoten darf nur mit einer Farbe gefärbt werden, also gilt:
+        \begin{align*}
+          K = \bigwedge\limits_{i \in \{1, \ldots, n\}}
+            (v_{i, 1} \vee v_{i, 2} \vee v_{i, 3}) \wedge
+            (\neg v_{i, 1} \vee \neg v_{i, 2}) \wedge
+            (\neg v_{i, 1} \vee \neg v_{i, 3}) \wedge
+            (\neg v_{i, 2} \vee \neg v_{i, 3})
+        \end{align*}
+
+        Weiterhin dürfen benachbarte Knoten nicht mit derselben Farbe gefärbt
+        werden. Es gilt also für alle $i \in \{1, \ldots, n\}$ und
+        $v_j \in N(v_i)$:
+        \begin{align*}
+          N = \bigwedge\limits
+            (\neg v_{i, 1} \vee \neg v_{j, 1}) \wedge
+            (\neg v_{i, 2} \vee \neg v_{j, 2}) \wedge
+            (\neg v_{i, 3} \vee \neg v_{j, 3})
+        \end{align*}
+
+        Alle Klauseln enthalten höchstens drei Literale und die Formel $K \wedge
+        N$ befindet sich in konjunktiver Normalform.
+
+      \item Während das Halteproblem nicht entscheidbar ist, weil die
+        Turingmaschine unendlich lange laufen würde, ist \COLORDrei{}
+        entscheidbar, da man „nur“ endlich viele Möglichkeiten ausprobieren
+        muss.
+    \end{enumerate}
+
+  \item ---
+
+  \item
+    \begin{enumerate}[(a)]
+      \item Um zu zeigen, dass $\NELP{} \in NP$ ist, müssen wir zeigen, dass
+        eine nichtdeterministische Turingmaschine existiert, die das Problem in
+        polynomieller Zeit entscheidet.
+
+        Angelehnt an die Vorlesung agiert die NTM nach folgendem
+        Pseudoalgorithmus:
+        \begin{enumerate}
+          \item „rate“ ein $x \in {\{0, 1\}}^n$
+          \item überprüfe $f(x_1, \ldots, x_n) \geq k$ und $Ax \leq b$
+        \end{enumerate}
+        Da der letzte Schritt in polynomieller Zeit ausgeführt werden kann, gilt
+        die Behauptung.
+
+      \item Gegeben sei das Problem \CLIQUE{} über dem Graphen $G = (V, E)$ mit
+        $n = |V|$ und $k \in \N$. Für die Reduktion auf \NELP{} betrachten wir
+        den Komplementgraph $\overline{G} = (V, V \times V \setminus E)$.
+
+        Die Matrix $A$ ergibt sich aus der Inzidenzmatrix von $\overline{G}$:
+        \begin{itemize}
+          \item $A$ enthält $n$ Spalten
+          \item jede Zeile von $A$ bildet eine Kante aus $\overline{G}$ ab
+          \item jede Zelle von $A$ enthält eine $1$, falls der Knoten der
+            jeweiligen Spalte auf der Kante liegt; ansonsten eine $0$
+        \end{itemize}
+        $A$ hat damit $m = \binom{n}{2} - |E|$ Zeilen und $n$ Spalten. Das $k$
+        aus \CLIQUE{} ist gleich dem $k$ aus \NELP{}. $c$ ist der
+        $n$-dimensionale $1$-Vektor und $b$ ist der $m$-dimensionale $1$-Vektor.
+
+        Der Lösungsvektor $x$ gibt dann an, welche Knoten in der Clique
+        enthalten sind.
+
+      \item Die Erzeugung des Komplementgraphen benötigt maximal $\binom{n}{2} =
+        \frac{n(n-1)}{2}$ Schritte und um die Matrix $A$ zu erzeugen, benötigen
+        wir $n \cdot m = n \cdot \left(\frac{n(n-1)}{2} - |E|\right)$ Schritte.
+        Insgesamt liegt der Aufwand in $O(n^3)$ und ist damit polynomiell.
+
+      \item Aus
+        \begin{align*}
+          G = (\{1,2,3,4,5,6\}, \{12, 13, 15, 23, 25, 34, 35, 45\})
+        \end{align*}
+        folgt
+        \begin{align*}
+          \overline{G} = (\{1,2,3,4,5,6\}, \{14, 16, 24, 26, 36, 46, 56\})
+        \end{align*}
+        Die Matrix $A$ ist demnach
+        \begin{align*}
+          A & = \begin{pmatrix}
+            1 & 0 & 0 & 1 & 0 & 0\\
+            1 & 0 & 0 & 0 & 0 & 1\\
+            0 & 1 & 0 & 1 & 0 & 0\\
+            0 & 1 & 0 & 0 & 0 & 1\\
+            0 & 0 & 1 & 0 & 0 & 1\\
+            0 & 0 & 0 & 1 & 0 & 1\\
+            0 & 0 & 0 & 0 & 1 & 1\\
+          \end{pmatrix}
+        \end{align*}
+
+        Die maximale Clique hat die Größe $k = 4$ und enthält die Knoten
+        $\{1,2,3,5\}$. In \NELP{} ergibt das folgende Ergebnisse:
+        \begin{align*}
+          Ax & = \begin{pmatrix}
+            1 & 0 & 0 & 1 & 0 & 0\\
+            1 & 0 & 0 & 0 & 0 & 1\\
+            0 & 1 & 0 & 1 & 0 & 0\\
+            0 & 1 & 0 & 0 & 0 & 1\\
+            0 & 0 & 1 & 0 & 0 & 1\\
+            0 & 0 & 0 & 1 & 0 & 1\\
+            0 & 0 & 0 & 0 & 1 & 1\\
+          \end{pmatrix}
+          \begin{pmatrix}
+            1\\
+            1\\
+            1\\
+            0\\
+            1\\
+            0
+          \end{pmatrix}
+          =
+          \begin{pmatrix}
+            1\\
+            1\\
+            1\\
+            1\\
+            1\\
+            0\\
+            1
+          \end{pmatrix}
+          \leq
+          \begin{pmatrix}
+            1\\
+            1\\
+            1\\
+            1\\
+            1\\
+            1\\
+            1
+          \end{pmatrix}
+          = b
+        \end{align*}
+        Der optimale Zielfunktionswert ist
+        \begin{align*}
+          \sum\limits_{i=1}^n c_i x_i = \sum\limits_{i=1}^n x_i = 4
+        \end{align*}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

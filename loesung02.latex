@@ -1,0 +1,465 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+%\usepackage{multirow}
+
+% Coole Zeichnungen:
+%\usepackage{tikz}
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 2}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{cccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & $\Sigma$\\
+    \midrule
+    & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item
+    \begin{enumerate}[(a)]
+      \item Sei $\Sigma$ ein beliebiges nichtleeres Alphabet. Es ist $L \in P$,
+        genau dann wenn $L \subseteq \Sigma^*$ und eine Turingmaschine $M$
+        existiert, die die char. Funktion
+        $\chi_L: \Sigma^* \rightarrow \{0, 1\}$
+        in polynomieller Zeit berechnet. Im Endzustand von $M$ steht auf dem
+        Band demnach:
+        \begin{align*}
+          M(\omega) = \begin{cases}
+            1 & \omega \in L\\
+            0 & \omega \notin L
+          \end{cases}
+        \end{align*}
+        Dazu betrachten wir die Turingmaschine $M'$, die im Endzustand auf dem
+        Band folgendes Ergebnis liefert:
+        \begin{align*}
+          M'(\omega) = \begin{cases}
+            1 & M(\omega) = 0\\
+            0 & M(\omega) = 1
+          \end{cases}
+        \end{align*}
+        Die Turingmaschine $M'$ berechnet also in polynomieller Zeit, ob $\omega
+        \in \Sigma^* \setminus L$ ist. Daraus folgt $P \subseteq coP$.
+
+        Analog dazu betrachten wir $L \in coP$: es ist $L \in coP$ genau dann,
+        wenn $L \subseteq \Sigma^*$ und eine Turingmaschine $M$ existiert, die die
+        char. Funktion
+        $\chi_L: \Sigma^* \setminus L \rightarrow \{0, 1\}$
+        in polynomieller Zeit berechnet. Im Endzustand von $M$ steht auf dem
+        Band demnach:
+        \begin{align*}
+          M(\omega) = \begin{cases}
+            1 & \omega \in \Sigma^* \setminus L\\
+            0 & \omega \notin \Sigma^* \setminus L
+          \end{cases}
+        \end{align*}
+        Wir definieren $M'$ wie oben und erhalten das Ergebnis, dass $M'$ in
+        polynomieller Zeit berechnet, ob $\omega \in L$ ist. Daraus folgt $coP
+        \subseteq P$ und insgesamt $P = coP$.
+
+      \item Sei $L_1 \in P$ und $L_2 \in P$. Das heißt, dass die Turingmaschinen
+        $M_1$ und $M_2$ existieren, die $L_1$ bzw. $L_2$ in polynomieller Zeit
+        entscheiden. Der Aufwand von $M_1$ für $L_1$ sei in $O(n^{k_1})$ und der
+        Aufwand von $M_2$ für $L_2$ in $O(n^{k_2})$ (für konstante Werte $k_1$
+        und $k_2$).
+
+        Die Konkatenation $L_1 L_2$ ist wie folgt definiert:
+        \begin{align*}
+          L_1 L_2 = \{ \omega_1 \omega_2 \mid \omega_1 \in L_1, \omega_2 \in L_2
+          \}
+        \end{align*}
+        Wir definieren eine Turingmaschine $M$, die $L_1 L_2$ in polynomieller
+        Zeit entscheidet. Diese muss ein Eingabewort $\omega$ jedoch zunächst
+        so in $\omega_1$ und $\omega_2$ aufspalten, dass $\omega_1 \in L_1$ und
+        $\omega_2 \in L_2$ gilt.
+
+        Dies erfolgt nach folgendem Pseudocode:
+        \begin{algorithmic}[1]
+          \REQUIRE{$\omega = a_1 a_2 \ldots a_n$}
+          \FOR{$i = 0$ \textbf{to} $n$}\label{alg:schleife}
+          \STATE{teile $\omega$ in $\omega_1 = a_1 \ldots a_i$ und $\omega_2 = a_{i+1} \ldots a_n$}\label{alg:aufteilung}
+          \STATE{berechne Ergebnis von $M_1$ mit der Eingabe $\omega_1$}
+          \STATE{berechne Ergebnis von $M_2$ mit der Eingabe $\omega_2$}
+          \IF{$M_1$ und $M_2$ akzeptieren ihre Eingaben}
+            \STATE{akzeptiere $\omega$}
+          \ENDIF{}
+          \ENDFOR{}
+          \IF{keine Aufteilung von $\omega$ in $\omega_1$ und $\omega_2$ führte
+          in einen akzeptierenden Zustand von $M_1$ und $M_2$}
+            \STATE{lehne $\omega$ ab}
+          \ENDIF{}
+        \end{algorithmic}
+        Bei der Aufteilung von $\omega$ in $\omega_1$ und $\omega_2$ in
+        Zeile~\ref{alg:aufteilung} gilt
+        $a_1 \ldots a_0 = \epsilon = a_{n+1} \ldots a_n$.
+
+        Es bleibt zu zeigen, dass $M$ die Eingabe $\omega$ in polynomieller Zeit
+        akzeptiert. Wie schon erwähnt liegt der Aufwand von $M_1$ für $L_1$ in
+        $O(n^{k_1})$ und der Aufwand von $M_2$ für $L_2$ in $O(n^{k_2})$.
+        Insgesamt liegt der Aufwand für einen Schleifendurchlauf in $O(n^{k_1})
+        + O(n^{k_2}) = O(n^k)$ mit $k = \max(k_1, k_2)$. Dazu kommt noch der
+        Aufwand für die Aufteilung von $\omega$ in $\omega_1$ und $\omega_2$.
+        Die Schleife in Zeile~\ref{alg:schleife} wird dabei maximal $n+1$ mal
+        durchlaufen. Das heißt, dass der Aufwand für die Entscheidung von $L_1
+        L_2$ gleich $(n+1) \cdot O(n^k)$ ist und damit in $O(n^{k+1})$ liegt,
+        was polynomiellem Aufwand entspricht. Es gilt also $L_1 L_2 \in P$.
+
+      \item —
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}[(a)]
+    \item Gegeben sei ein ungerichteter Graph $(V,E)$.
+
+      Finde das minimale $k$, sodass man die Knoten mit $k$ Farben so färben
+        kann, dass benachbarte Knoten immer verschiedene Farben haben?
+
+    \item Gegeben sei ein ungerichteter Graph $(V,E)$ mit $V = \{v_1, \ldots,
+        v_n \}$. Wir können den Graphen mit maximal $n$ Farben färben und falls
+        der Graph nur einen Knoten besitzt, können wir ihn mit genau einer Farbe
+        färben. Der minimale Wert für $k$ befindet sich demnach im Intervall
+        $[1, n]$.
+
+        Wir nehmen an, dass der Algorithmus $\COLOR(V, E, k)$ in
+        deterministischer Polynomialzeit $p(n)$ entscheiden kann, ob der
+        ungerichtete Graph $(V, E)$ mit $k$ Farben gefärbt werden kann.
+
+        Folgender Algorithmus löst die Optimierungsvariante I von \COLOR{}:
+        \begin{algorithmic}
+          \REQUIRE{ein ungerichteter Graph $(V, E)$}
+          \STATE{min $\leftarrow 1$}
+          \STATE{max $\leftarrow |V|$}
+          \WHILE{min < max}
+            \STATE{mid $\leftarrow \lfloor (\text{min} + \text{max})/2 \rfloor$}
+            \IF{$\COLOR(V, E, \text{mid})$}
+              \STATE{max $\leftarrow$ mid}
+            \ELSE{}
+              \STATE{min $\leftarrow$ mid}
+            \ENDIF{}
+          \ENDWHILE{}
+          \RETURN{min}
+        \end{algorithmic}
+
+        Diese Binärschachtelung benötigt maximal
+        $\lfloor \text{log}_2 \, n \rfloor + 1$
+        Schritte.
+
+        Der Graph wird auf dem Band einer Turingmaschine mit dem Bandalphabet
+        $\{0, 1, \#\}$ wie folgt kodiert:
+        \begin{align*}
+          \underbrace{\bin(1) \# \bin(2) \# \ldots \# \bin(n)}_{\text{Knoten}}
+          \# \#
+          \underbrace{%
+            \underbrace{\bin(1) \# \bin(2)}_{\text{Kante\ } (v_1, v_2)} \# \# \ldots
+          }_{\text{Kanten}}
+        \end{align*}
+        Die Länge der binärkodierten Eingabe ergibt sich wie folgt:
+        \begin{itemize}
+          \item ein binärkodierter Knoten hat maximal die Länge
+            $\bin(n) \leq \lfloor \text{log}_2\, n \rfloor + 1$
+          \item davon haben wir $n$ Stück
+          \item dazu kommen $n-1$ Trennzeichen zwischen den Knoten
+          \item[$\Rightarrow$] maximal
+            $n (\lfloor \text{log}_2\, n \rfloor + 1) + n-1
+            \leq n (\lfloor \text{log}_2\, n \rfloor + 2)$
+            Zeichen für die Knoten
+          \item in einem Graphen existieren maximal
+            $\binom{n}{2} = \frac{n (n-1)}{2}$
+            Kanten
+          \item eine binärkodierte Kante besteht aus $2$ Knoten, einem
+            Trennzeichen zwischen den Knoten und zwei Trennzeichen vor dem
+            ersten Knoten
+          \item[$\Rightarrow$] maximal $\frac{n (n-1)}{2}
+            \cdot \left(2
+            \cdot (\lfloor \text{log}_2\, n \rfloor + 1) + 1 + 2\right)
+            \leq n^2 (2 \lfloor \text{log}_2\, n \rfloor + 5)$
+            Zeichen für die Kanten
+        \end{itemize}
+        Insgesamt liegt der Aufwand demnach in
+        $O\Big(
+          \big(
+            n (\lfloor \text{log}_2\, n \rfloor + 2)
+            + n^2 (2 \lfloor \text{log}_2\, n \rfloor + 5)
+          \big) \cdot p(n)
+        \Big)$, was die Polynomialzeiteigenschaft zeigt.
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}[(a)]
+      \item Optimierungsvariante I für \TSP{}:
+
+        Gegeben sei ein vollständiger Graph $(V, E = V \times V)$ mit
+        einer Kostenfunktion $c: E \rightarrow \N$.
+
+        Finde die minimalen Kosten einer Rundreise über alle Knoten.
+
+      Optimierungsvariante II für \TSP{}:
+
+        Gegeben sei ein vollständiger Graph $(V, E = V \times V)$ mit
+        einer Kostenfunktion $c: E \rightarrow \N$.
+
+        Finde die minimalen Kosten einer Rundreise über alle Knoten und einen
+        Kreis über alle Knoten im Graphen, der diese Kosten erfüllt.
+
+      \item
+        \begin{enumerate}[1.]
+          \item Wir nehmen an, dass der Algorithmus $\TSP(V, E, c, k)$ in
+            deterministischer Polynomialzeit $q(n)$ entscheiden kann, ob in dem
+            vollständigem Graphen $(V, E)$ mit der Kostenfunktion
+            $c: E \rightarrow \N$ eine Rundreise über alle Knoten existiert,
+            dessen Kosten $\leq k$ sind.
+
+            Folgender Algorithmus löst die Optimierungsvariante I von \TSP{}:
+            \begin{algorithmic}[1]
+              \REQUIRE{ein vollständiger Graph $(V, E)$ und eine Kostenfunktion $c: E \rightarrow \N$}
+              \STATE{lower $\leftarrow 0$}
+              \STATE{$C \leftarrow \max\,\{c(e) \mid e \in E\}$}
+              \STATE{upper $\leftarrow |V| \cdot C$}
+              \WHILE{lower < upper}
+                \STATE{mid $\leftarrow \lfloor (\text{lower} + \text{upper})/2 \rfloor$}
+                \IF{$\TSP(V, E, c, \text{mid})$}
+                  \STATE{upper $\leftarrow$ mid}
+                \ELSE{}
+                  \STATE{lower $\leftarrow$ mid}
+                \ENDIF{}
+              \ENDWHILE{}
+              \RETURN{lower}
+            \end{algorithmic}
+
+          \item Der Graph wird auf dem Band einer Turingmaschine mit dem
+            Bandalphabet $\{0, 1, \#\}$ wie folgt kodiert:
+            \begin{align*}
+              \underbrace{\bin(1) \# \bin(2) \# \ldots \# \bin(n)}_{\text{Knoten}}
+              \# \#
+              \underbrace{%
+                \underbrace{\bin(1) \# \bin(2)}_{\text{Kante\ } (v_1, v_2)}
+                \#
+                \underbrace{\bin(c((v_1, v_2)))}_{\text{Kosten von } (v_1, v_2)}
+                \# \# \ldots
+              }_{\text{Kanten}}
+            \end{align*}
+            Die Kodierung entspricht im Wesentlichen der von Aufgabe 2. (b), nur
+            dass zu jeder Kante noch die Binärkodierung der Kostenfunktion
+            hinzukommt.
+
+            Sei $C$ der im Graphen größte angenommene Wert der Kostenfunktion.
+            Ein Wert der Kostenfunktion nimmt dann maximal $\lfloor \text{log}_2
+            C \rfloor + 1$ Stellen in Anspruch. Dazu kommt ein Trennzeichen pro
+            Kante. Insgesamt kommen maximal $n^2 \cdot \left( \lfloor
+            \text{log}_2 C \rfloor + 2 \right)$ Zeichen hinzu, sodass der
+            Aufwand für die Optimierungsvariante I in
+            \begin{align*}
+              O\Big(
+                \big(
+                  n (\lfloor \text{log}_2\, n \rfloor + 2)
+                  + n^2 (2 \lfloor \text{log}_2\, n \rfloor + 5)
+                  + n^2 \left( \lfloor \text{log}_2 C \rfloor + 2 \right)
+                \big) \cdot q(n)
+              \Big)
+            \end{align*}
+            liegt, was die Polynomialzeiteigenschaft zeigt.
+        \end{enumerate}
+
+      \item
+        \begin{enumerate}[1.]
+          \item Wir nehmen an, dass der Algorithmus $\TSPOPTI(V, E, c)$ in
+            deterministischer Polynomialzeit $r(n)$ in dem vollständigem Graphen
+            $(V, E)$ mit der Kostenfunktion $c: E \rightarrow \N$ die minimalen
+            Kosten einer Rundreise über alle Knoten berechnen kann.
+
+            Folgender Algorithmus löst die Optimierungsvariante II von \TSP{}:
+            \begin{algorithmic}[1]
+              \REQUIRE{ein vollständiger Graph $(V, E)$ und eine Kostenfunktion $c: E \rightarrow \N$}
+              \STATE{min $\leftarrow \TSPOPTI(V, E, c)$}
+              \STATE{$U \leftarrow E$}
+              \WHILE{$U \neq \emptyset$}
+                \STATE{wähle $e$ aus $U$}
+                \STATE{$U \leftarrow U \setminus \{ e \}$}
+                \STATE{$k \leftarrow \TSPOPTI(V, E \setminus \{ e \}, c)$}
+                \IF{$k =$ min}
+                  \STATE{$E \leftarrow E \setminus \{ e \}$}
+                \ENDIF{}
+              \ENDWHILE{}
+              \RETURN{$E$}
+            \end{algorithmic}
+
+          \item Dieser Algorithmus überprüft für jede Kante im Graphen, ob sie
+            wichtig ist und zur Rundreise gehört oder ob die Rundreise ohne sie
+            teurer würde. Am Ende bleiben nur die wichtigen Kanten übrig.
+
+            Dabei wird jede Kante einmal überprüft (wovon maximal $n^2$
+            existieren), sodass die Komplexität der Optimierungsvariante II in
+            $O(n^2 \cdot r(n))$ liegt.
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

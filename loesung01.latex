@@ -1,0 +1,385 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+%\usepackage{multirow}
+
+% Coole Zeichnungen:
+%\usepackage{tikz}
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 1}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{ccccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & \textbf{4.} & $\Sigma$\\
+    \midrule
+    & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item
+    \begin{enumerate}
+      \item Die TM überprüft die \textsc{Palindrom}-Eigenschaft rekursiv, indem
+        es das erste und das letzte Zeichen auf Gleichheit überprüft. Bei
+        Gleichheit werden das erste und letzte Zeichen bei diesem Vorgang
+        entfernt und der Vorgang beginnt erneut.
+
+        Wörter der Länge $< 2$ sind dabei immer Palindrome.
+
+      \item Wir betrachten das Wort $abaaba$ der Länge $n = 6$.
+
+        Der Algorithmus der oben definierten TM arbeiten in vier „Phasen“, die
+        jeweils unterschiedlich viele Schritte (Kopfbewegungen) benötigen.
+        Wir nehmen an, dass der Kopf der TM zu Beginn am Anfang des Wortes
+        steht.\footnote{Wir können die TM auch so verändern, dass der Kopf zu
+        Beginn am Ende des Wortes oder sogar dahinter steht. Dazu müssen wir
+        einfach eine zusätzliche Phase einbauen, die den Kopf zum Anfang des
+        Wortes laufen lässt. Dies würde linearen Aufwand hinzufügen, was am Ende
+        keinen Unterschied macht.}
+
+        \begin{tabular}{cll}
+          Phase & Beschreibung & benötigte Schritte\\
+          \midrule
+          I & erstes Zeichen lesen & $1$\\
+          II & zum letzten Zeichen gehen & $6 = n$\\
+          III & letztes Zeichen lesen & $1$\\
+          IV & zum ersten Zeichen gehen & $5 = n-1$\\
+          \midrule
+          & & $13 = 2n+1$\\
+          \bottomrule
+        \end{tabular}
+
+        Es bleibt das Wort $baab$ der Länge $4$ übrig. Der Algorithmus beginnt
+        erneut und benötigt $2(n-2) + 1 = 9$ Schritte. Für das Wort $aa$ der
+        Länge $2$ werden $2(n-4) + 1 = 5$ Schritte und für das leere Wort wird
+        $1$ Schritt benötigt („springe in den akzeptierenden Zustand“).
+
+        Um die Gleichheit des ersten und letzten Buchstabens eines Wortes der
+        Länge $n$ zu überprüfen, werden $2n+1$ Schritte benötigt. Dies
+        funktioniert auch für ein Wort der Länge $1$:
+
+        \begin{tabular}{cll}
+          Phase & Beschreibung & benötigte Schritte\\
+          \midrule
+          I & erstes Zeichen lesen & $1$\\
+          II & zum letzten Zeichen gehen & $1$\\
+          III' & in den akzeptierenden Zustand springen & $1$\\
+          \midrule
+          & & $3$\\
+          \bottomrule
+        \end{tabular}
+
+        Die Anzahl der insgesamt benötigten Schritte berechnet sich durch
+        folgende Summenformel:
+        \begin{align*}
+          \sum\limits_{k=0}^{\lfloor n/2 \rfloor} 2(n - 2k) + 1
+        \end{align*}
+
+        Für ein Wort der Länge $6$ werden insgesamt $13 + 9 + 5 + 1 = 28$
+        Schritte benötigt.
+
+        Die obere Grenze für den Index wird abgerundet, damit die Summation auch
+        für Wörter ungerader Länge funktioniert.
+
+        Für die genaue Abschätzung betrachten wir zunächst die Anzahl der
+        Einsen. Diese beträgt $\lfloor n/2 \rfloor + 1$, da der Index bei $0$
+        startet. Somit erhalten wir:
+        \begin{align*}
+          \sum\limits_{k=0}^{\lfloor n/2 \rfloor} 2(n - 2k) + 1
+          = \lfloor n/2 \rfloor + 1 + \sum\limits_{k=0}^{\lfloor n/2 \rfloor} 2(n - 2k)
+        \end{align*}
+
+        Den konstanten Faktor $2$ können wir ohne Probleme herausziehen:
+        \begin{align*}
+          \lfloor n/2 \rfloor + 1 + \sum\limits_{k=0}^{\lfloor n/2 \rfloor} 2(n - 2k)
+          = \lfloor n/2 \rfloor + 1 + 2 \sum\limits_{k=0}^{\lfloor n/2 \rfloor} n - 2k
+        \end{align*}
+
+        Den Term $\sum\limits_{k=0}^{\lfloor n/2 \rfloor} n - 2k$ können wir in
+        zwei Summen aufspalten:
+        \begin{align*}
+          \lfloor n/2 \rfloor + 1 + 2 \sum\limits_{k=0}^{\lfloor n/2 \rfloor} n - 2k
+          = \lfloor n/2 \rfloor + 1 + 2
+            \left(
+              \sum\limits_{k=0}^{\lfloor n/2 \rfloor} n
+              - 2 \sum\limits_{k=0}^{\lfloor n/2 \rfloor} k
+            \right)
+        \end{align*}
+
+        Der Term
+        $\sum\limits_{k=0}^{\lfloor n/2 \rfloor} n$
+        vereinfacht sich zu dem Produkt
+        $\left( \lfloor n/2 \rfloor + 1 \right) n$
+        und der Term
+        $\sum\limits_{k=0}^{\lfloor n/2 \rfloor} k$
+        ist die Gaußsche Summenformel, also
+        $\frac{\lfloor n/2 \rfloor \left(\lfloor n/2 \rfloor + 1\right)}{2}$.
+
+        Damit landen wir bei
+        \begin{align*}
+          \lfloor n/2 \rfloor + 1 + 2
+            \left(
+              \sum\limits_{k=0}^{\lfloor n/2 \rfloor} n
+              - 2 \sum\limits_{k=0}^{\lfloor n/2 \rfloor} k
+            \right)
+          & = \lfloor n/2 \rfloor + 1 + 2
+            \left(
+              \left( \lfloor n/2 \rfloor + 1 \right) n
+              - 2
+              \frac{\lfloor n/2 \rfloor \left(\lfloor n/2 \rfloor + 1\right)}{2}
+            \right)\\
+          & = \lfloor n/2 \rfloor + 1 + 2
+            \left( \lfloor n/2 \rfloor + 1 \right)
+            \left( n - \lfloor n/2 \rfloor \right)
+        \end{align*}
+
+        Wir wählen für die weitere Analyse die Abschätzung
+        $\lfloor n/2 \rfloor \leq \frac{n}{2}$
+        und erhalten:
+        \begin{align*}
+          \lfloor n/2 \rfloor + 1 + 2
+            \left( \lfloor n/2 \rfloor + 1 \right)
+            \left( n - \lfloor n/2 \rfloor \right)
+          & \leq \frac{n}{2} + 1 + 2
+            \left( \frac{n}{2} + 1 \right)
+            \left( n - \frac{n}{2} \right)\\
+          & = \frac{1}{2} n^2 + \frac{3}{2} n + 1
+            = \frac{1}{2} (n+2) (n+1)
+            = \binom{n+2}{2}
+        \end{align*}
+        Eine kombinatorische Begründung fällt mir dafür aber nicht ein.
+
+      \item Es gilt $\frac{1}{2} n^2 + \frac{3}{2} n + 1 \in O(n^2)$.
+
+      \item ---
+    \end{enumerate}
+
+    \item \begin{enumerate}
+      \item Ist korrekt. Es ist zu zeigen, dass für fast alle $n$ und ein
+        beliebiges $k \in \N \setminus \{ 0 \}$ gilt:
+        \begin{align*}
+          3n + 4 + \log n \leq k \cdot n
+        \end{align*}
+        Wir wählen $k := 5$ und erhalten:
+        \begin{align*}
+          3n + 4 + \log n & \leq 5n\\
+          4 + \log n & \leq 2n = n + n
+        \end{align*}
+        Es gilt $4 \leq n$ für fast alle $n$ (nämlich ab $n > 4$).
+
+        Bleibt zu zeigen, dass $\log n \leq n$.
+        Wir wenden die $e$-Funktion auf beiden Seiten an und erhalten:
+        \begin{align*}
+          n \leq e^n = \sum\limits_{i=0}^{\infty} \frac{n^i}{i!} = 1 + n + \dots
+        \end{align*}
+        Daraus folgt $n \leq 1 + n$ für alle $n \in \N$. \hfill $\blacksquare$
+
+      \item Ist korrekt. Es ist zu zeigen, dass für fast alle $n$ und ein
+        beliebiges $k \in \N \setminus \{ 0 \}$ gilt:
+        \begin{align*}
+          \log n \leq k \cdot \sqrt{n}
+        \end{align*}
+        Wir wählen $k := 2$ und erhalten:
+        \begin{align*}
+          \log n & \leq 2 \sqrt{n}\\
+          n & \leq e^{2 \sqrt{n}} \geq 1 + 2 \sqrt{n} + \frac{2 n}{2}\\
+          n & \leq 1 + 2 \sqrt{n} + n\\
+          0 & \leq 1 + 2 \sqrt{n}
+        \end{align*}
+        Die letzte Aussage ist für alle $n \in \N$ wahr. \hfill $\blacksquare$
+
+      \item Ist nicht korrekt. Sei $k \in \N \setminus \{ 0 \}$ beliebig, aber
+        fest gewählt.
+
+        Es gilt
+        \begin{align*}
+          \sum\limits_{i = 1}^{n} i = \frac{n(n+1)}{2}
+        \end{align*}
+        Es wäre zu zeigen, dass für fast alle $n \in \N$ gilt:
+        \begin{align*}
+          \frac{n(n+1)}{2} & \leq k \cdot n\\
+          n(n+1) & \leq 2k \cdot n
+        \end{align*}
+        Für $n > 0$ müsste gelten:
+        \begin{align*}
+          n+1 & \leq 2k
+        \end{align*}
+        Ab $n \geq 2k$ ist die Ungleichung aber nicht mehr erfüllt. Also gilt
+        \begin{align*}
+          \sum\limits_{i = 1}^{n} i \notin O(n)
+        \end{align*}
+        \ \hfill $\blacksquare$
+    \end{enumerate}
+
+    \item ---
+
+    \item Die Komplexität des Suchalgorithmus „binäre Suche“ liegt in
+      $O(\log n)$ bzw.\ genauer gesagt in $O(\log_2 n)$, da das Intervall, in
+      welchem das Schlüsselement gesucht wird, bei jedem rekursiven Aufruf
+      mindestens um die Hälfte verringert wird.
+
+      Man könnte den Verlauf der binären Suche als Binärzahl interpretieren.
+      Jede Stelle gibt entweder „suche links weiter“ ($0$) oder „suche rechts
+      weiter“ ($1$) an. Im schlimmsten Fall wird immer nur links oder rechts
+      gesucht. Falls immer nur rechts weitergesucht wird, erhalten wir die
+      Binärdarstellung von $N-1$ und diese enthält $\log_2 (N-1)$ Einsen. Falls
+      immer nur links weitergesucht wird, erhalten wir $\log_2 (N-1)$ Nullen.
+\end{enumerate}
+
+\end{document}

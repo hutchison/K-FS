@@ -1,0 +1,353 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+%\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+\usepackage{multirow}
+
+% Coole Zeichnungen:
+\usepackage{tikz}
+%\tikzstyle{vertex}=[draw, circle, minimum size=20pt]
+%\tikzstyle{edge}=[draw, -]
+%\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  %positioning,
+  %fit,
+  %calc,
+  %arrows,
+  %automata,
+  %trees,
+  %decorations.pathreplacing,
+%}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 7}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\newcommand{\p}{\leq_{\textsf{p}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\HC}{\textsf{HAMILTONIAN CIRCUIT}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IS}{\textsf{INDEPENDENT SET}}
+\newcommand{\VC}{\textsf{VERTEX COVER}}
+\newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{ccccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & \textbf{4.} & $\Sigma$\\
+    \midrule
+    & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}[1.]
+  \item
+    \begin{enumerate}[(a)]
+      \item Wir wählen $n = 1$. Damit gilt $x = x_0 R x_1 = y$, also sind alle
+        Tupel $(x,y)$ aus $R$ auch in $R^+$ ($R \subseteq R^+$).
+
+      \item Wir starten mit $n = 2$:
+        \begin{itemize}
+          \item $x = aRbRc = y \Rightarrow (a,c) \in R^+$
+          \item $x = aRbRe = y \Rightarrow (a,e) \in R^+$
+          \item $x = bReRd = y \Rightarrow (b,d) \in R^+$
+        \end{itemize}
+
+        Weiter geht’s mit $n = 3$:
+        \begin{itemize}
+          \item $x = aRbReRd = y \Rightarrow (a,d) \in R^+$
+        \end{itemize}
+
+        Und das war’s auch schon. Damit ist
+        $R^+ = \{(a,b), (b,c), (b,e), (e,d), (a,c), (a,e), (b,d), (a,d)\}$
+
+      \item $R^* = R^+ \cup \{(a,a), (b,b), (c,c), (d,d), (e,e)\}$
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}[(a)]
+      \item Damit $E \subseteq R$ gilt, müssen wir für alle $(u,v) \in E$ je
+        ein $w_1$ und $w_2$ finden, sodass $w = w_1 u w_2$ und $\tilde{w} = w_1
+        v w_2$ und damit $w R \tilde{w}$ gilt.
+
+        Dafür wählen wir $w_1 = w_2 = \epsilon$ und damit ist $w = u$ und
+        $\tilde{w} = v$. Da $(u,v) \in E$, gilt $wR\tilde{w}$.
+
+      \item\
+        \begin{center}
+          \begin{tabular}{llllll}
+            \toprule
+            $w$ & $\tilde{w}$ & $w_1$ & $u$ & $v$& $w_2$\\
+            \midrule
+            $aX$ & $acZ$ & $a$ & $X$ & $cZ$ & $\epsilon$\\
+            $acZ$ & $aca$ & $ac$ & $Z$ & $a$ & $\epsilon$\\
+            $bY$ & $bdU$ & $b$ & $Y$ & $dU$ & $\epsilon$\\
+            $bdU$ & $bdb$ & $bd$ & $U$ & $b$ & $\epsilon$\\
+            $cZ$ & $ca$ & $c$ & $Z$ & $a$ & $\epsilon$\\
+            $dU$ & $db$ & $d$ & $U$ & $b$ & $\epsilon$
+          \end{tabular}
+        \end{center}
+
+      \item $\{ (S, w) \in \{ S \} \times {(X \cup H)}^* \mid S R^+ w\}
+        = \{ (S, aX), (S, acZ), (S, aca), (S, bY), (S, bdU), (S, bdb) \}$
+
+      \item $\{ (S, w) \in \{ S \} \times {(X \cup H)}^* \mid S R^* w\}
+        = \{ (S, w) \in \{ S \} \times {(X \cup H)}^* \mid S R^+ w\}
+        \cup \{ (S,S) \}$
+      \item $\{ aca, bdb \}$
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}[(a)]
+      \item Sei $G = (X, H, E, S)$ mit
+        \begin{align*}
+          X & = \{a, b, c\}\\
+          H & = \{ S \}\\
+          E & = \{
+            (S, \epsilon),
+          (S, a), (S, b), (S, c),
+          (S, aSa), (S, bSb), (S, cSc)
+          \}
+        \end{align*}
+
+      \item Ich nehme mal an, dass wir folgende Aussage beweisen
+        sollen:\footnote{Sonst wäre diese Aufgabe die gleiche wie 3 (c).}
+        \begin{center}
+          Wenn $w \in {\{a, b, c\}}^*$ ein Palindrom ist, dann ist $w \in L_G$.
+        \end{center}
+        Sei $\ell: X^* \rightarrow \N$ die Wortlängenfunktion.
+
+        Induktionsanfang: sei $w \in {\{a, b, c\}}^*$ und $\ell(w) \leq 1$.
+        Ausgehend vom Startsymbol $S$ wurde dann eine der folgenden
+        Ableitungsregeln angewandt: $(S, ε), (S, a), (S, b), (S, c)$.
+        Damit ist $w \in L_G$.
+
+        Induktionsvoraussetzung: sei $w \in {\{a, b, c\}}^*$ und $\ell(w) = n$,
+        dann ist $w \in L_G$.
+
+        Induktionsschritt: sei $v = v_1 v_2 \ldots v_{n+2} \in {\{a, b, c\}}^*$
+        ein Palindrom mit $\ell(v) = n+2$. Dann gilt nach Definition von
+        Palindromen:
+        \begin{itemize}
+          \item Es existiert ein Palindrom $w \in {\{a, b, c\}}^*$ mit $w = v_2
+            \ldots v_{n+1}$ und $\ell(w) = n$, welches nach
+            Induktionsvoraussetzung in $L_G$ liegt.
+
+          \item $v_1 = v_{n+2}$ und damit wurde in der Ableitung von $v$ eine
+            der folgenden Regeln benutzt: $(S, aSa), (S, bSb), (S, cSc)$.
+        \end{itemize}
+        Damit gilt $v \in L_G$.
+
+      \item Induktionsanfang: Sei $w \in L_G$ und $\ell(w) = 0$, also $w = ε$,
+        dann ist $w$ nach Definition von Palindromen (Induktionsanfang) ein
+        Palindrom.
+
+        Sei $v \in L_G$ und $\ell(v) = 1$, dann ist auch $v$ nach Definition von
+        Palindromen (Induktionsanfang) ein Palindrom.
+
+        Induktionsvoraussetzung: sei $w \in L_G$ und $\ell(w) = n$, dann ist $w$
+        ein Palindrom.
+
+        Induktionsschritt: sei $v = v_1 v_2 \ldots v_{n+2} \in L_G$ mit $\ell(v)
+        = n+2$. Da $v \in L_G$ und $\ell(v) \geq 2$ ist, muss bei der Ableitung
+        von $v$ eine der folgenden Ableitungsregeln angewandt worden sein: $(S,
+        aSa), (S, bSb), (S, cSc)$. Daraus folgt $v_1 = v_{n+2}$.
+
+        Da $v \in L_G$, ist das Teilwort $w = v_2 \ldots v_{n+1}$ auch in $L_G$.
+        Weiterhin gilt $\ell(w) = n$, daher ist $w$ nach Induktionsvoraussetzung
+        ein Palindrom.
+
+        Insgesamt erhalten wir: $v$ ist ein Palindrom.
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}[(a)]
+      \item Sei $G = (X, H, E, S)$ mit
+        \begin{align*}
+          X & = \{a, b\}\\
+          H & = \{S, B\}\\
+          E & = \{(S, ε), (S, abB), (S, B), (B, ε), (B, bbB)\}
+        \end{align*}
+
+      \item $S \rightarrow abB \rightarrow abbbB \rightarrow abbbbbB \rightarrow
+        abbbbb$ und $S \rightarrow B \rightarrow bbB \rightarrow bbbbB
+        \rightarrow bbbbbbB \rightarrow bbbbbb$.
+
+      \item Sei $A = (X, Q, q_0, δ, F)$ der DEA, der $L$ akzeptiert. Es gilt:
+        \begin{align*}
+          X & = \{a, b\}\\
+          Q & = \{q_0, q_1, q_2, q_3, q_4, q_5\}\\
+          F & = \{q_0, q_2\}
+        \end{align*}
+        Weiterhin ist $δ: Q \times X \rightarrow Q$ wie folgt definiert:
+        \begin{center}
+          \begin{tabular}{lcc}
+            \toprule
+                  & $a$ & $b$\\
+            \midrule
+            $q_0$ & $q_1$ & $q_3$\\
+            $q_1$ & $q_4$ & $q_2$\\
+            $q_2$ & $q_4$ & $q_3$\\
+            $q_3$ & $q_4$ & $q_2$\\
+            $q_4$ & $q_4$ & $q_4$\\
+            \bottomrule
+          \end{tabular}
+        \end{center}
+  \end{enumerate}
+\end{enumerate}
+
+\end{document}

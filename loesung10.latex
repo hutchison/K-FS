@@ -1,0 +1,323 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+%smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+%\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+%\usepackage{listings}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+\usepackage{multirow}
+
+% Coole Zeichnungen:
+\usepackage{tikz}
+%\tikzstyle{vertex}=[draw, circle, minimum size=20pt]
+%\tikzstyle{edge}=[draw, -]
+\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  positioning,
+  %fit,
+  %calc,
+  %arrows,
+  automata,
+  %trees,
+  %decorations.pathreplacing,
+}
+
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Komplexität \& Formale Sprachen, Gruppe 1}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 10}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
+\newcommand{\p}{\leq_{\textsf{p}}}
+\renewcommand{\max}{\text{max}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\HC}{\textsf{HAMILTONIAN CIRCUIT}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IS}{\textsf{INDEPENDENT SET}}
+\newcommand{\VC}{\textsf{VERTEX COVER}}
+\newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
+
+\begin{document}
+
+% Punktetabelle für Korrektoren:
+\begin{center}
+  \begin{tabular}{cccccc}
+    \toprule
+    \textbf{1.} & \textbf{2.} & \textbf{3.} & \textbf{4.} & \textbf{5.} & $\Sigma$\\
+    \midrule
+    & & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\begin{enumerate}[1.]
+  \item
+    \begin{enumerate}
+      \item A1:
+        \begin{align*}
+          \begin{matrix}
+            & a & b & c & d & e & f\\
+            a & \times & & \times & \times & \times & \times\\
+            b & & \times & \times & \times & \times & \times\\
+            c & \times & \times & \times & & \times & \times\\
+            d & \times & \times & & \times & \times & \times\\
+            e & \times & \times & \times & \times & \times & \\
+            f & \times & \times & \times & \times & & \times
+          \end{matrix}
+        \end{align*}
+        \begin{align*}
+          [a] & = \{ a, b \}\\
+          [b] & = \{ a, b \}\\
+          [c] & = \{ c, d \}\\
+          [d] & = \{ c, d \}\\
+          [e] & = \{ e, f \}\\
+          [f] & = \{ e, f \}
+        \end{align*}
+
+      \item Der Myhill-Nerode-Index beträgt $3$, da A1 genau $3$
+        Äquivalenzklassen besitzt ($\{a,b\}, \{c,d\}, \{e,f\}$).
+
+      \item \
+        \begin{center}
+          \begin{tikzpicture}[scale=1,node distance=0.8cm,auto]
+            \node [state, initial] (ab) {$a,b$};
+            \node [state, accepting] (cd) [below=of ab] {$c,d$};
+            \node [state] (ef) [below=of cd] {$e,f$};
+
+            \path[->] (ab)  edge [loop right] node {$0$}    ();
+            \path[->] (ab)  edge              node {$1$}    (cd)
+                      (cd)  edge              node {$0,1$}  (ef);
+            \path[->] (ef)  edge [loop right] node {$0,1$}  ();
+          \end{tikzpicture}
+        \end{center}
+
+      \item A2:
+        \begin{align*}
+          \begin{matrix}
+                & z_0 & z_1 & z_2 & z_3 & z_4 & z_5 & z_6 & z_7\\
+            z_0 & \times & \times & \times & \times & & & \times & \times\\
+            z_1 & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_2 & \times & \times & \times & \times & \times & \times & \times & \\
+            z_3 & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_4 & & \times & \times & \times & \times & & \times & \times\\
+            z_5 & & \times & \times & \times & & \times & \times & \times\\
+            z_6 & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_7 & \times & \times & & \times & \times & \times & \times & \times\\
+          \end{matrix}
+        \end{align*}
+        \begin{align*}
+          [z_0] & = \{z_0, z_4, z_5\}\\
+          [z_1] & = \{z_1\}\\
+          [z_2] & = \{z_2, z_7\}\\
+          [z_3] & = \{z_3\}\\
+          [z_4] & = \{z_0, z_4, z_5\}\\
+          [z_5] & = \{z_0, z_4, z_5\}\\
+          [z_6] & = \{z_6\}\\
+          [z_7] & = \{z_2, z_7\}
+        \end{align*}
+
+      \item A2 hat den Myhill-Nerode-Index $5$, weil es genau $5$
+        Äquivalenzklassen gibt ($\{z_0, z_4, z_5\}, \{z_1\}, \{z_2, z_7\},
+        \{z_3\}, \{z_6\}$).
+
+      \item \
+        \begin{center}
+        \begin{tikzpicture}[scale=1,node distance=0.8cm,auto]
+          \node [state, initial] (045) {$z_0, z_4, z_5$};
+          \node [state] (1) [below=of 045] {$z_1$};
+          \node [state, accepting] (27) [below=of 1] {$z_2, z_7$};
+          \node [state] (3) [below right=of 27] {$z_3$};
+          \node [state] (6) [below left=of 27] {$z_6$};
+
+          \path[->] (045) edge [loop right] node        {$1$}   ();
+          \path[->] (045) edge [bend left]  node        {$0$}   (1);
+          \path[->] (1)   edge [bend left]  node        {$0$}   (045)
+                          edge              node        {$1$}   (27);
+          \path[->] (27)  edge              node        {$0$}   (3)
+                          edge [bend left]  node        {$1$}   (6);
+          \path[->] (6)   edge [bend left]  node        {$1$}   (27)
+                          edge [bend right] node [swap] {$0$}   (3);
+          \path[->] (3)   edge [loop right] node        {$0,1$} ();
+        \end{tikzpicture}
+        \end{center}
+
+      \item Ein DEA ohne totale Zustandsübergangsfunktion hat Zustände, für die
+        der Übergang bei bestimmten Zeichen nicht definiert ist. Das bedeutet,
+        dass keine Zustandsänderung stattfindet und der DEA in diesem Zustand
+        bleibt.
+
+        Das heißt, dass man einen DEA ohne totale Zustandsübergangsfunktion zu
+        einen mit totaler Zustandsübergangsfunktion erweitern kann, indem man
+        zusätzliche Schleifen hinzufügt.
+
+        Diesen DEA kann man dann ganz normal minimieren.
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}
+      \item \
+        \begin{center}
+        \begin{tikzpicture}[scale=1, node distance=1cm, auto]
+          \node [state, initial] (q_0) {$q_0$};
+          \node [state] (q_1) [below right=of q_0] {$q_1$};
+          \node [state] (q_3) [below left=of q_0] {$q_3$};
+          \node [state, accepting] (q_2) [below left=of q_1] {$q_2$};
+
+          \path[->] (q_0) edge node {$a$} (q_1)
+                          edge node [swap] {$b$} (q_3)
+                    (q_1) edge node {$a$} (q_3)
+                          edge node {$b$} (q_2)
+                    (q_3) edge [loop left] node {$a,b$} ()
+                    (q_2) edge [loop below] node {$a,b$} ();
+        \end{tikzpicture}
+        \end{center}
+      \item $L(A) = ab {\{a,b\}}^*$
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
