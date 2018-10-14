@@ -4,3 +4,7 @@
 *.pdf
 *.fls
 *.fdb_latexmk
+
+*.py
+*.awk
+*.tsv
