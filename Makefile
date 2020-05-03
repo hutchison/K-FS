@@ -1,4 +1,4 @@
-.PHONY: mitschrift.pdf punkte clean
+.PHONY: mitschrift.pdf punkte clean loesungen
 
 clean:
 	rm -f *.aux *.log *.fls *.out *.fdb_latexmk
@@ -8,6 +8,8 @@ punkte:
 
 mitschrift.pdf: mitschrift.latex
 	latexmk -pdf -use-make -pvc mitschrift.latex
+
+loesungen: loesung01.pdf loesung02.pdf loesung03.pdf loesung04.pdf loesung05.pdf loesung06.pdf loesung07.pdf loesung10.pdf
 
 loesung01.pdf: loesung01.latex
 	latexmk -pdf -xelatex -use-make $<

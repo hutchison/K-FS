@@ -4,6 +4,7 @@
 *.pdf
 *.fls
 *.fdb_latexmk
+*.xdv
 
 *.py
 *.awk
